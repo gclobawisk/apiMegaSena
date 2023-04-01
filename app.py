@@ -97,7 +97,60 @@ def totalRepeticoes():
     return jsonify(maisSorteados)
 
 
+# Top 6 que mais cgaíram
+@app.route('/api/maissorteados', methods=['GET'])
+def maisSorteados():
+    todosResultados = dictResultados()
+    maisSorteados = {}
+    resultadosOrdenados = {}
 
+    for id, sorteio in todosResultados.items():
+        bola1 = int(sorteio['bola1'])
+        bola2 = int(sorteio['bola2'])
+        bola3 = int(sorteio['bola3'])
+        bola4 = int(sorteio['bola4'])
+        bola5 = int(sorteio['bola5'])
+        bola6 = int(sorteio['bola6'])
+
+        if bola1 not in maisSorteados.keys():
+            maisSorteados[bola1] = 1
+        else:
+            maisSorteados[bola1] += 1
+
+        if bola2 not in maisSorteados.keys():
+            maisSorteados[bola2] = 1
+        else:
+            maisSorteados[bola2] += 1
+
+        if bola3 not in maisSorteados.keys():
+            maisSorteados[bola3] = 1
+        else:
+            maisSorteados[bola3] += 1
+
+        if bola4 not in maisSorteados.keys():
+            maisSorteados[bola4] = 1
+        else:
+            maisSorteados[bola4] += 1
+
+        if bola5 not in maisSorteados.keys():
+            maisSorteados[bola5] = 1
+        else:
+            maisSorteados[bola5] += 1
+
+        if bola6 not in maisSorteados.keys():
+            maisSorteados[bola6] = 1
+        else:
+            maisSorteados[bola6] += 1
+
+    count = 1
+    for i in sorted(maisSorteados, key = maisSorteados.get, reverse=True):
+        if count >= 7:
+            break
+        else:
+            resultadosOrdenados[i] = maisSorteados[i]
+            count += 1
+
+    return resultadosOrdenados
 
 
 if __name__ == '__main__':
